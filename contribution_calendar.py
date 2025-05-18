@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 import numpy as np
 from datetime import datetime, timedelta
 import os
@@ -14,7 +13,7 @@ class ContributionCalendar:
         contributions: List of dicts with date and count
         """
         self.contributions = contributions or []
-
+    
     def generate_past_year_dates(self):
         """Generate dates for the past year in GitHub style calendar"""
         end_date = datetime.now().date()
@@ -99,25 +98,29 @@ class ContributionCalendar:
         # Save the image
         plt.savefig(save_path, dpi=100, bbox_inches='tight')
         plt.close()
-        return save_path
-
-    def display_in_tk_window(self, window, x=50, y=180, width=500, height=150):
+        return save_path    def display_in_tk_window(self, window, x=50, y=180, width=500, height=150):
         """Display the calendar in a tkinter window"""
-        # Generate and save calendar image
-        img_path = self.create_calendar_image()
-        
-        # Load and display the image
-        img = Image.open(img_path)
-        img = img.resize((width, height))
-        photo = ImageTk.PhotoImage(img)
-        
-        # Create label to display image
-        label = tk.Label(window, image=photo)
-        label.image = photo  # Keep a reference to prevent garbage collection
-        label.place(x=x, y=y)
-        
-        # Add title label
-        title = tk.Label(window, text='GitHub Contribution Calendar')
-        title.place(x=x+150, y=y-20)
-        
-        return label, title
+        try:
+            # Generate and save calendar image
+            img_path = self.create_calendar_image()
+            
+            # Load and display the image
+            img = Image.open(img_path)
+            img = img.resize((width, height))
+            photo = ImageTk.PhotoImage(img)
+            
+            # Create label to display image
+            label = tk.Label(window, image=photo)
+            label.image = photo  # Keep a reference to prevent garbage collection
+            label.place(x=x, y=y)
+            
+            # Add title label
+            title = tk.Label(window, text='GitHub Contribution Calendar')
+            title.place(x=x+150, y=y-20)
+            
+            return label, title
+        except Exception as e:
+            # If error occurs, just show a placeholder text
+            error_label = tk.Label(window, text=f'Could not load contribution calendar: {str(e)}')
+            error_label.place(x=x+50, y=y+50)
+            return error_label, None
