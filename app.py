@@ -2,9 +2,21 @@
 """
 GitHub Contribution Tracker - Main Application Entry Point
 
-This is the main entry point for the application.
-It will attempt to run the enhanced version with system tray support first,
-and fall back to the basic version if that fails.
+This is the main entry point for the application that helps you choose between:
+
+1. Enhanced Version (enhanced_main.py):
+   - Full-featured version with system tray integration
+   - Background checking for contributions
+   - Minimizable to tray
+   - Dark theme UI
+
+2. Basic Version (fixed_main.py):
+   - Simpler version without system tray integration
+   - Core functionality only
+   - Lighter on resources
+
+The app will use the enhanced version by default, unless you choose
+the basic version with the --basic flag or an error occurs.
 """
 
 import os

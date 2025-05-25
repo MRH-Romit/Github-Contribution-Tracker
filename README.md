@@ -11,9 +11,7 @@ A desktop application that helps developers maintain their GitHub contribution s
 - **Automatic Background Checking:** Periodically checks for contributions (every 6 hours by default)
 - **Dark Theme UI:** Designed with GitHub's dark theme colors for a familiar experience
 
-## Screenshots
 
-(Screenshots will be added here)
 
 ## Installation
 
@@ -106,13 +104,25 @@ The built application will be available in the `dist` folder.
 
 ## Project Structure
 
-- `app.py` - Main entry point
-- `fixed_main.py` - Core application logic
-- `enhanced_main.py` - Extended features (system tray support)
+- `app.py` - Main entry point for the application
+- `fixed_main.py` - Basic version with core functionality
+- `enhanced_main.py` - Advanced version with system tray integration
 - `github_api.py` - GitHub API interaction (not included in repository)
 - `simple_calendar.py` - Contribution calendar visualization
 - `notifier.py` - System notifications
-- `system_tray.py` - System tray integration
+- `system_tray.py` - System tray integration for background operation
+
+### Application Versions
+
+The application comes in two versions:
+
+1. **Enhanced Version** (default): Full-featured with system tray support, background monitoring, and more UI options.
+2. **Basic Version**: Simpler version with only core functionality for checking contributions.
+
+When you run `app.py`, it will use the Enhanced Version by default. If you prefer the Basic Version, use:
+```
+python app.py --basic
+```
 
 ## Development
 
@@ -128,6 +138,4 @@ If you want to contribute to this project:
 
 See `Roadmap.txt` for detailed planned features and development phases.
 
-## License
 
-MIT

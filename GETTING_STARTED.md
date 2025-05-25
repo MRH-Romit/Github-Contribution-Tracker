@@ -19,6 +19,8 @@ Thank you for using GitHub Contribution Tracker! This guide will help you get up
 3. Copy `config.json.template` to `config.json`
 4. Copy `github_api.py.template` to `github_api.py`
 5. Run the application with: `python app.py`
+   - To use the enhanced version with system tray (default): `python app.py`
+   - To use the basic version: `python app.py --basic`
 
 ## Setting up your GitHub token
 
