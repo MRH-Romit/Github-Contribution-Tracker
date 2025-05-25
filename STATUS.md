@@ -21,6 +21,12 @@
 - Installation script for easy setup
 - PyInstaller configuration for executable building
 
+✅ **Documentation & Usability**
+- Clear version selection through app.py
+- Detailed version comparison documentation
+- Simplified entry point with automatic version selection
+- Command-line arguments for user preferences
+
 ✅ **User Experience**
 - Auto-loading of saved credentials
 - Error handling and status display

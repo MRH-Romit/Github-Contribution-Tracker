@@ -78,16 +78,22 @@ def main():
         print(f"Error importing required libraries: {e}")
         print("Please install required packages with: pip install -r requirements.txt")
         return 1
-        
-    # Run the application
+          # Run the application
     if args.basic:
         # Use the basic version if requested
-        print("Using basic version as requested.")
+        print("Starting GitHub Contribution Tracker (Basic Version)")
+        print("This version provides core functionality without system tray integration.")
+        print("For the enhanced experience, run without the --basic flag.")
+        print("-" * 60)
         import fixed_main
         return 0
     else:
         try:
             # Try to import and run the enhanced version first (best experience)
+            print("Starting GitHub Contribution Tracker (Enhanced Version)")
+            print("This version includes system tray integration and background monitoring.")
+            print("-" * 60)
+            
             from enhanced_main import GithubContributionTracker
             app = GithubContributionTracker()
             
@@ -100,11 +106,14 @@ def main():
         except ImportError as e:
             # Fall back to fixed version if enhanced isn't available
             print(f"Enhanced version not available: {e}")
-            print("Using standard version instead.")
+            print("Falling back to basic version.")
+            print("-" * 60)
             import fixed_main
             return 0
         except Exception as e:
             print(f"Error starting application: {e}")
+            print(f"Error details: {str(e)}")
+            print("Try running with --basic flag for the simpler version.")
             return 1
 
 if __name__ == "__main__":
