@@ -5,13 +5,20 @@ Thank you for using GitHub Contribution Tracker! This guide will help you get up
 ## Installation
 
 ### Option 1: Run the executable (Windows)
-1. Simply run `GitHubContributionTracker.exe` from the `dist` folder
-2. No installation required!
+1. Download the latest `GitHubContributionTracker.exe` from the Releases page
+2. Run the executable - no installation required!
 
-### Option 2: Run from source code
+### Option 2: Automated setup (Windows)
+1. Make sure you have Python 3.7+ installed
+2. Run the `install.bat` script
+3. Follow the on-screen instructions
+
+### Option 3: Manual installation
 1. Make sure you have Python 3.7+ installed
 2. Install dependencies with: `pip install -r requirements.txt`
-3. Run the application with: `python run_app.py`
+3. Copy `config.json.template` to `config.json`
+4. Copy `github_api.py.template` to `github_api.py`
+5. Run the application with: `python app.py`
 
 ## Setting up your GitHub token
 

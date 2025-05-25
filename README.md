@@ -32,14 +32,14 @@ cd github-contribution-tracker
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the application
-python run_app.py
+# Create your config file from the template
+cp config.json.template config.json
 
-# Optional command line arguments:
-# Start minimized to system tray:
-python run_app.py --tray
-# Set custom check interval (in hours):
-python run_app.py --interval 4
+# Edit the config file with your GitHub username and token
+# (see the Setup section below for how to get a token)
+
+# Run the application
+python app.py
 ```
 
 ## Setup
@@ -104,8 +104,30 @@ The built application will be available in the `dist` folder.
 - No data is transmitted to any third-party servers
 - The application only makes API calls to GitHub.com
 
+## Project Structure
+
+- `app.py` - Main entry point
+- `fixed_main.py` - Core application logic
+- `enhanced_main.py` - Extended features (system tray support)
+- `github_api.py` - GitHub API interaction (not included in repository)
+- `simple_calendar.py` - Contribution calendar visualization
+- `notifier.py` - System notifications
+- `system_tray.py` - System tray integration
+
+## Development
+
+If you want to contribute to this project:
+
+1. Fork the repository
+2. Copy `github_api.py.template` to `github_api.py`
+3. Copy `config.json.template` to `config.json`
+4. Make your changes
+5. Submit a pull request
+
 ## Roadmap
+
 See `Roadmap.txt` for detailed planned features and development phases.
 
 ## License
+
 MIT

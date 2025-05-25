@@ -1,0 +1,137 @@
+import requests
+import json
+from datetime import datetime, timedelta
+
+CONFIG_FILE = 'config.json'
+
+class GitHubAPI:
+    def __init__(self):
+        self.load_config()
+        # Replace with your GitHub username and token for testing
+        self.test_username = ""
+        self.test_token = ""
+
+    def load_config(self):
+        """Load GitHub username and token from config file"""
+        try:
+            with open(CONFIG_FILE, 'r') as f:
+                config = json.load(f)
+            self.username = config.get('username', '')
+            self.token = config.get('token', '')
+        except (FileNotFoundError, json.JSONDecodeError):
+            self.username = ''
+            self.token = ''
+
+    def get_today_contributions(self):
+        """Check if user has made any contributions today"""
+        if not self.username or not self.token:
+            return None
+        
+        url = f'https://api.github.com/users/{self.username}/events'
+        headers = {'Authorization': f'token {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            if response.status_code != 200:
+                return None
+                
+            today = datetime.utcnow().date()
+            events = response.json()
+            
+            for event in events:
+                created_at = event.get('created_at', '')
+                if created_at:
+                    event_date = datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%SZ').date()
+                    if event_date == today:
+                        return True
+            return False
+        except Exception:
+            # Return None if any error occurred
+            return None
+
+    def get_profile_stats(self):
+        """Get user profile information"""
+        if not self.username or not self.token:
+            return None
+            
+        url = f'https://api.github.com/users/{self.username}'
+        headers = {'Authorization': f'token {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            if response.status_code != 200:
+                return None
+                
+            data = response.json()
+            return {
+                'name': data.get('name', self.username),
+                'public_repos': data.get('public_repos', 0),
+                'followers': data.get('followers', 0),
+                'following': data.get('following', 0),
+                'created_at': data.get('created_at', ''),
+                'avatar_url': data.get('avatar_url', ''),
+                'bio': data.get('bio', ''),
+            }
+        except Exception:
+            return None
+
+    def get_contribution_stats(self):
+        """Get contribution statistics"""
+        # This endpoint is not public, so we use events as a proxy for contributions
+        if not self.username or not self.token:
+            return None
+            
+        url = f'https://api.github.com/users/{self.username}/events'
+        headers = {'Authorization': f'token {self.token}'}
+        
+        try:
+            response = requests.get(url, headers=headers)
+            if response.status_code != 200:
+                return None
+                
+            today = datetime.utcnow().date()
+            events = response.json()
+            total = 0
+            
+            for event in events:
+                created_at = event.get('created_at', '')
+                if created_at:
+                    event_date = datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%SZ').date()
+                    if event_date == today:
+                        total += 1
+                        
+            return {'today': total, 'events': len(events)}
+        except Exception:
+            return None
+    
+    def get_yearly_contributions(self):
+        """
+        Get yearly contributions for the calendar view
+        Returns a list of dicts with date and count
+        """
+        # Use mocked data for demonstration purposes
+        return self._generate_mock_data()
+    
+    def _generate_mock_data(self):
+        """Generate mock contribution data for demonstration"""
+        import random
+        contributions = []
+        today = datetime.utcnow().date()
+        
+        # Create data for the past year
+        for i in range(365):
+            date = today - timedelta(days=i)
+            date_str = date.strftime('%Y-%m-%d')
+            
+            # Random activity pattern with higher likelihood on weekdays
+            weekday = date.weekday()
+            if weekday < 5:  # Monday-Friday
+                count = random.choices([0, 1, 2, 3, 4, 5, 6], 
+                                    weights=[0.3, 0.2, 0.2, 0.1, 0.1, 0.05, 0.05])[0]
+            else:  # Weekend
+                count = random.choices([0, 1, 2], 
+                                    weights=[0.7, 0.2, 0.1])[0]
+            
+            contributions.append({'date': date_str, 'count': count})
+            
+        return contributions

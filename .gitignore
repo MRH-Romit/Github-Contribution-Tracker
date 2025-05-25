@@ -1,1 +1,31 @@
+# Files to ignore in Git repository
+
+# Roadmap
 Roadmap.txt
+
+# Configuration with API tokens
+config.json
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build files
+build/
+dist/
+*.spec
+
+# Environmental and IDE files
+.env
+.venv
+env/
+venv/
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Specific sensitive files
+github_api.py

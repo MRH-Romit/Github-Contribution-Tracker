@@ -1,0 +1,6 @@
+﻿{
+  "username": "your-github-username",
+  "token": "your-github-personal-access-token",
+  "last_check": "",
+  "minimize_to_tray": true
+}
